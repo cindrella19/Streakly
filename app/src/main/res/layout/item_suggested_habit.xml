@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/suggested_habit_bg"
+    android:layout_marginBottom="12dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/habitName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Drink 2 Liters of Water"
+        android:textSize="15sp"
+        android:textColor="#1F2937"
+        android:fontFamily="sans-serif-medium"/>
+
+    <ImageView
+        android:id="@+id/addBtn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_add"
+        android:tint="#7C5CFF"
+        android:contentDescription="Add Habit"/>
+</LinearLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#F5F4FF"/>
+        </shape>
+    </item>
+
+    <!-- Top soft blob -->
+    <item android:top="-120dp" android:left="-80dp">
+        <shape android:shape="oval">
+            <solid android:color="#EDE9FF"/>
+        </shape>
+    </item>
+
+    <!-- Bottom soft blob -->
+    <item android:bottom="-140dp" android:right="-100dp">
+        <shape android:shape="oval">
+            <solid android:color="#F0ECFF"/>
+        </shape>
+    </item>
+
+</layer-list>

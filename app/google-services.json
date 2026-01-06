@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "640939744094",
+    "project_id": "streakly-c7453",
+    "storage_bucket": "streakly-c7453.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640939744094:android:8206f34ea5d08143234dcf",
+        "android_client_info": {
+          "package_name": "com.example.finalstreakkeeper"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1VZI7dgL9NKU7K53Q8SvORlvya2q4aQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
