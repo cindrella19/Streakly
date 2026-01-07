@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -109,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setContentView(R.layout.activity_main);
 
-        // -------- TOOLBAR & DRAWER --------
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -129,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             toggle.syncState();
         }
 
-        // -------- BACK NAVIGATION --------
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -143,7 +140,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        // -------- FIND VIEWS --------
         completedStreaksCount = findViewById(R.id.completedStreaksCount);
         activeStreaksCount = findViewById(R.id.activeStreaksCount);
         TextView quoteText = findViewById(R.id.quoteText);
@@ -155,14 +151,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView dateText = findViewById(R.id.dateText);
         RecyclerView recyclerView = findViewById(R.id.habitRecycler);
 
-        // -------- DATE HEADER --------
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM", Locale.getDefault());
         Date now = new Date();
         if (dayText != null) dayText.setText(dayFormat.format(now));
         if (dateText != null) dateText.setText(dateFormat.format(now));
 
-        // -------- DAILY QUOTE --------
         if (quoteText != null) {
             long today = System.currentTimeMillis() / (1000 * 60 * 60 * 24);
             Random random = new Random(today);
@@ -170,7 +164,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             quoteText.setText(quotes[index]);
         }
 
-        // -------- LOAD DATA --------
         prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         habitList = loadHabits();
 
@@ -181,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             saveHabits();
         }
 
-        // -------- RECYCLER VIEW --------
         if (recyclerView != null) {
             adapter = new HabitAdapter(this, habitList);
             adapter.setOnHabitChangeListener(this::updateSummary);
@@ -239,7 +231,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             new ItemTouchHelper(swipeCallback).attachToRecyclerView(recyclerView);
         }
 
-        // -------- LISTENERS --------
         if (addHabitBtn != null) {
             addHabitBtn.setOnClickListener(v -> showAddDialog());
         }
@@ -339,11 +330,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void logoutUser() {
         new AlertDialog.Builder(this)
-                .setTitle("Logout")
-                .setMessage("Are you sure you want to logout?")
-                .setPositiveButton("Logout", (dialog, which) -> {
+                .setTitle("Log out")
+                .setMessage("Are you sure you want to log out?")
+                .setPositiveButton("Yes", (dialog, which) -> {
                     mAuth.signOut();
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                     finish();
                 })
                 .setNegativeButton("Cancel", null)

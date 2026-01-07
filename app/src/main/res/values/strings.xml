@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Streakly</string>
     <!-- Replace with your actual Web Client ID from Firebase Console (Google Auth) -->
-    <string name="default_web_client_id">YOUR_WEB_CLIENT_ID_HERE</string>
+    <string name="default_web_client_id">
+    640939744094-9g4aul5jalv2tlaem9idb1q4tqil7p4i.apps.googleusercontent.com
+</string>
+
 </resources>

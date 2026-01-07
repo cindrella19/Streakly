@@ -46,10 +46,10 @@
                     android:layout_height="140dp"
                     android:padding="2dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_person"
+                    android:src="@drawable/streakly_brand_logo"
                     app:shapeAppearanceOverlay="@style/ShapeAppearance.Circle"
                     app:strokeColor="#3F6CFF"
-                    app:strokeWidth="3dp" />
+                    app:strokeWidth="0dp" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/addPhotoBtn"
@@ -61,7 +61,8 @@
                     app:tint="@android:color/white"
                     app:maxImageSize="24dp"
                     android:backgroundTint="#3F6CFF"
-                    app:elevation="4dp"/>
+                    app:elevation="4dp"
+                    android:visibility="gone"/>
             </FrameLayout>
 
             <!-- DISPLAY NAME (Clickable) -->

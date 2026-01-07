@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Primary Brand Background: Professional Gradient Circle -->
+    <path android:pathData="M54,54m-50,0a50,50 0,1 1,100 0a50,50 0,1 1,-100 0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="0"
+                android:startY="0"
+                android:endX="108"
+                android:endY="108"
+                android:type="linear">
+                <item android:offset="0" android:color="#3F6CFF"/>
+                <item android:offset="1" android:color="#703FFF"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Foreground Symbol: Flame + Success Tick in Pure White -->
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:scaleX="0.65"
+        android:scaleY="0.65"
+        android:translateY="-2">
+        
+        <!-- Flame Shape -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M54,25 C54,25 40,40 40,55 C40,65 48,72 54,72 C60,72 68,65 68,55 C68,45 54,25 54,25 Z M54,65 C50,65 46,61 46,55 C46,50 54,40 54,40 C54,40 62,50 62,55 C62,61 58,65 54,65 Z" />
+        
+        <!-- Success Tick Detail -->
+        <path
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="6"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:pathData="M42,82 L54,92 L78,60" />
+    </group>
+</vector>
