@@ -40,9 +40,9 @@ public class StreaksActivity extends AppCompatActivity {
         ArrayList<Habit> activeHabits = new ArrayList<>();
 
         for (Habit h : habitList) {
-            if (h.streak > maxStreak) maxStreak = h.streak; // Simplified for now
-            if (h.streak > currentBest) currentBest = h.streak;
-            if (h.streak > 0) activeHabits.add(h);
+            if (h.getStreak() > maxStreak) maxStreak = h.getStreak(); // Simplified for now
+            if (h.getStreak() > currentBest) currentBest = h.getStreak();
+            if (h.getStreak() > 0) activeHabits.add(h);
         }
 
         longestStreakEver.setText(String.valueOf(maxStreak));

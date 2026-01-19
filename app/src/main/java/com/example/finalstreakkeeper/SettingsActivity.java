@@ -74,7 +74,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         for (Habit h : habitList) {
             h.setStreak(0);
-            h.setCompleted(false);
+            h.setCompletedToday(false);
+
         }
 
         prefs.edit().putString("habits_list", gson.toJson(habitList)).apply();

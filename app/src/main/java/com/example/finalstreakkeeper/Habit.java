@@ -2,48 +2,56 @@ package com.example.finalstreakkeeper;
 
 public class Habit {
 
-    public String name;
-    public String type;
-    public int streak;
-    public long lastCompletedTime;
+    // 🔹 Firestore document ID
+    private String id;
 
-    public Habit(String name) {
-        this.name = name;
+    // 🔹 Firestore fields
+    private String title;
+    private String type;
+    private int streak;
+    private boolean completedToday;
+    private long lastCompletedTime;
+
+    // ✅ REQUIRED empty constructor (Firestore needs this)
+    public Habit() {}
+
+    // Optional constructors (for manual creation)
+    public Habit(String title) {
+        this.title = title;
         this.type = "default";
         this.streak = 0;
+        this.completedToday = false;
         this.lastCompletedTime = 0;
     }
 
-    public Habit(String name, String type) {
-        this.name = name;
+    public Habit(String title, String type) {
+        this.title = title;
         this.type = type;
         this.streak = 0;
+        this.completedToday = false;
         this.lastCompletedTime = 0;
     }
 
-    public void setStreak(int streak) {
-        this.streak = streak;
-    }
+    // 🔹 GETTERS
+    public String getId() { return id; }
+    public String getTitle() { return title; }
+    public String getType() { return type; }
+    public int getStreak() { return streak; }
+    public boolean isCompletedToday() { return completedToday; }
+    public long getLastCompletedTime() { return lastCompletedTime; }
 
-    public void setCompleted(boolean completed) {
-        if (completed) {
-            this.lastCompletedTime = System.currentTimeMillis();
-        } else {
-            this.lastCompletedTime = 0;
-        }
-    }
+    // 🔹 SETTERS (Firestore uses these)
+    public void setId(String id) { this.id = id; }
+    public void setTitle(String title) { this.title = title; }
+    public void setType(String type) { this.type = type; }
+    public void setStreak(int streak) { this.streak = streak; }
+    public void setCompletedToday(boolean completedToday) { this.completedToday = completedToday; }
+    public void setLastCompletedTime(long lastCompletedTime) { this.lastCompletedTime = lastCompletedTime; }
 
-    public boolean isCompletedToday() {
-        if (lastCompletedTime == 0) return false;
-
-        java.util.Calendar last = java.util.Calendar.getInstance();
-        java.util.Calendar now = java.util.Calendar.getInstance();
-
-        last.setTimeInMillis(lastCompletedTime);
-        now.setTimeInMillis(System.currentTimeMillis());
-
-        return last.get(java.util.Calendar.YEAR) == now.get(java.util.Calendar.YEAR)
-                && last.get(java.util.Calendar.DAY_OF_YEAR) == now.get(java.util.Calendar.DAY_OF_YEAR);
+    // 🔹 Helper logic (kept from your code)
+    public void markCompleted() {
+        this.completedToday = true;
+        this.lastCompletedTime = System.currentTimeMillis();
     }
 
     public boolean wasCompletedYesterday() {

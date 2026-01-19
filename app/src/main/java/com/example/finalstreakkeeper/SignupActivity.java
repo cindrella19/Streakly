@@ -13,6 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -41,6 +46,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void signupUser() {
+
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
         String confirmPassword = confirmPasswordInput.getText().toString().trim();
@@ -63,14 +69,45 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         progressBar.setVisibility(View.VISIBLE);
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
+
                     progressBar.setVisibility(View.GONE);
+
                     if (task.isSuccessful()) {
-                        startActivity(new Intent(SignupActivity.this, MainActivity.class));
-                        finishAffinity();
+
+                        String uid = mAuth.getCurrentUser().getUid();
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                        Map<String, Object> userData = new HashMap<>();
+                        userData.put("name", "");
+                        userData.put("email", email);
+                        userData.put("doneToday", 0);
+                        userData.put("activeHabits", 0);
+                        userData.put("createdAt", FieldValue.serverTimestamp());
+
+                        db.collection("users")
+                                .document(uid)
+                                .set(userData)
+                                .addOnSuccessListener(aVoid -> {
+                                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                                    finishAffinity();
+                                })
+                                .addOnFailureListener(e ->
+                                        Toast.makeText(
+                                                SignupActivity.this,
+                                                "Firestore error: " + e.getMessage(),
+                                                Toast.LENGTH_LONG
+                                        ).show()
+                                );
+
                     } else {
-                        Toast.makeText(SignupActivity.this, "Signup failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(
+                                SignupActivity.this,
+                                "Signup failed: " + task.getException().getMessage(),
+                                Toast.LENGTH_LONG
+                        ).show();
                     }
                 });
     }

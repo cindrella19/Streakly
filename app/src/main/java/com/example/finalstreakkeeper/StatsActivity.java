@@ -42,7 +42,7 @@ public class StatsActivity extends AppCompatActivity {
         int completedToday = 0;
 
         for (Habit h : habitList) {
-            if (h.streak > best) best = h.streak;
+            if (h.getStreak() > best) best = h.getStreak();
             if (h.isCompletedToday()) completedToday++;
         }
 

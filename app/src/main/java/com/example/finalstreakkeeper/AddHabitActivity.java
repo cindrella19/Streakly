@@ -20,6 +20,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FieldValue;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import android.content.Intent;
+import android.widget.Toast;
+
 public class AddHabitActivity extends AppCompatActivity {
 
     private LinearLayout container;
@@ -93,16 +103,47 @@ public class AddHabitActivity extends AppCompatActivity {
         habitName.setText(habitNameText);
 
         item.findViewById(R.id.addBtn).setOnClickListener(v -> {
-            Intent data = new Intent();
-            data.putExtra("habit_name", habitNameText);
-            setResult(RESULT_OK, data);
-            
-            // Remove from UI
-            container.removeView(item);
-            fetchedIdeas.remove(habitNameText);
-            
-            finish();
+
+            // 1️⃣ Save habit to Firestore
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            Map<String, Object> habitData = new HashMap<>();
+            habitData.put("title", habitNameText);
+            habitData.put("streak", 0);
+            habitData.put("completedToday", false);
+            habitData.put("lastCompletedDate", null);
+            habitData.put("createdAt", FieldValue.serverTimestamp());
+
+            db.collection("users")
+                    .document(uid)
+                    .collection("habits")
+                    .add(habitData)
+                    .addOnSuccessListener(docRef -> {
+
+                        // 2️⃣ Update activeHabits count
+                        db.collection("users")
+                                .document(uid)
+                                .update("activeHabits", FieldValue.increment(1));
+
+                        // 3️⃣ Send result back to UI
+                        Intent data = new Intent();
+                        data.putExtra("habit_name", habitNameText);
+                        setResult(RESULT_OK, data);
+
+                        // 4️⃣ Remove from UI
+                        container.removeView(item);
+                        fetchedIdeas.remove(habitNameText);
+
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(AddHabitActivity.this,
+                                "Failed to save habit: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    });
         });
+
 
         container.addView(item);
     }
