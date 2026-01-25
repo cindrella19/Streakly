@@ -100,9 +100,16 @@ public class AddHabitActivity extends AppCompatActivity {
     private void addIdeaToUi(String habitNameText) {
         View item = getLayoutInflater().inflate(R.layout.item_suggested_habit, container, false);
         TextView habitName = item.findViewById(R.id.habitName);
+
+        if (habitName == null) {
+            android.util.Log.e("IDEAS", "habitName TextView is NULL. Check item_suggested_habit.xml");
+            return; // prevents crash
+        }
+
         habitName.setText(habitNameText);
 
-        item.findViewById(R.id.addBtn).setOnClickListener(v -> {
+
+        item.findViewById(R.id.addIdeaBtn).setOnClickListener(v -> {
 
             // 1️⃣ Save habit to Firestore
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -133,6 +140,8 @@ public class AddHabitActivity extends AppCompatActivity {
 
                         // 4️⃣ Remove from UI
                         container.removeView(item);
+
+
                         fetchedIdeas.remove(habitNameText);
 
                         finish();
